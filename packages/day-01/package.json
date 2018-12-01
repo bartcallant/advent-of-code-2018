@@ -1,0 +1,23 @@
+{
+	"name": "@advent-of-code-2018/day-01",
+	"version": "0.0.0",
+	"description": "Day 01",
+	"author": "Bart Callant <bart@callant.net>",
+	"homepage": "",
+	"license": "ISC",
+	"main": "dist/index.js",
+	"directories": {
+		"lib": "dist"
+	},
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"lint": "tslint -p . -t stylish",
+		"compile": "tsc",
+		"prebuild": "npm run lint",
+		"build": "npm run compile",
+		"start": "node dist/index.js"
+	},
+	"dependencies": {}
+}
