@@ -1,0 +1,35 @@
+{
+	"name": "advent-of-code-2018",
+	"version": "1.0.0",
+	"description": "My code for the Advent of Code challenge for 2018",
+	"main": "dist/index.js",
+	"scripts": {
+		"prestart": "npm run build",
+		"start": "lerna run start",
+		"lerna": "lerna",
+		"build": "lerna run build",
+		"bootstrap": "lerna bootstrap",
+		"clean": "lerna clean"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/bartcallant/advent-of-code-2018.git"
+	},
+	"keywords": [
+		"advent",
+		"of",
+		"code",
+		"2018"
+	],
+	"author": "Bart Callant <bart@callant.net>",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/bartcallant/advent-of-code-2018/issues"
+	},
+	"homepage": "https://github.com/bartcallant/advent-of-code-2018#readme",
+	"devDependencies": {
+		"lerna": "^3.5.1",
+		"tslint": "^5.11.0",
+		"typescript": "^3.2.1"
+	}
+}
