@@ -1,0 +1,23 @@
+{
+	"name": "@advent-of-code-2018/day-03",
+	"version": "0.0.0",
+	"description": "Day 03",
+	"author": "Bart Callant <bart@callant.net>",
+	"homepage": "https://github.com/bartcallant/advent-of-code-2018/tree/master/packages/day-03#readme",
+	"license": "ISC",
+	"main": "dist/index.js",
+	"directories": {
+		"lib": "dist"
+	},
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"lint": "tslint -p . -t stylish",
+		"compile": "tsc",
+		"prebuild": "npm run lint",
+		"build": "npm run compile",
+		"start": "node dist/index.js"
+	},
+	"dependencies": {}
+}
