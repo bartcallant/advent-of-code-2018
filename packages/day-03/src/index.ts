@@ -1,5 +1,7 @@
 console.log('Advent of Code - Day 02');
 
+import { input } from './input';
+
 /**
  * --- Day 3: No Matter How You Slice It ---
  *
@@ -64,6 +66,7 @@ interface Claim {
 	y: number;
 	width: number;
 	height: number;
+	overlap?: boolean;
 }
 
 function parseStringToClaim(inp: string): Claim {
@@ -110,6 +113,57 @@ function calculateOverlap(inputs: string[]): number {
 const testResult = calculateOverlap(testInputs);
 console.log('Overlap of testResults:', testResult);
 
-import { input } from './input';
 const result = calculateOverlap(input);
 console.log('Overlap of input:', result); // Correct result: 118322
+
+/**
+ * --- Part Two ---
+ *
+ * Amidst the chaos, you notice that exactly one claim doesn't overlap by even a single square inch of fabric with any other claim.
+ * If you can somehow draw attention to it, maybe the Elves will be able to make Santa's suit after all!
+ *
+ * For example, in the claims above, only claim 3 is intact after all claims are made.
+ *
+ * What is the ID of the only claim that doesn't overlap?
+ */
+
+function calculateNonOverlapId(inputs: string[]): string {
+	const areaMap = new Map<string, string>();
+	const noOverlapClaimIds = new Map<string, boolean>();
+
+	for (const inp of inputs) {
+		const claim = parseStringToClaim(inp);
+
+		const xEnd = claim.x + claim.width;
+		const yEnd = claim.y + claim.height;
+
+		for (let x = claim.x; x < xEnd; x++) {
+			for (let y = claim.y; y < yEnd; y++) {
+				const key = `${x}x${y}`;
+				const areaValue = areaMap.get(key);
+
+				if (areaValue === undefined) {
+					areaMap.set(key, claim.id);
+
+					if (!noOverlapClaimIds.has(claim.id)) {
+						noOverlapClaimIds.set(claim.id, true);
+					}
+				} else {
+					areaMap.set(key, claim.id);
+					noOverlapClaimIds.set(claim.id, false);
+					noOverlapClaimIds.set(areaValue, false);
+				}
+			}
+		}
+	}
+
+	const results = Array.from(noOverlapClaimIds.entries()).filter(([, value]) => value).map(([id]) => id.replace('#', ''));
+
+	return results[0];
+}
+
+const testResult2 = calculateNonOverlapId(testInputs);
+console.log('NonOverlapId of testResults:', testResult2);
+
+const result2 = calculateNonOverlapId(input);
+console.log('NonOverlapId of input:', result2); // Correct result: 1178
