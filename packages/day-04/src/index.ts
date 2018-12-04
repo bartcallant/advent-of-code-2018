@@ -128,7 +128,7 @@ const parseEvent = (log: string): Eventt => {
 	};
 };
 
-function calculate(logs: string[]): number {
+function calculateAsleepMaps(logs: string[]) {
 	const events = logs.sort((a, b) => a.localeCompare(b)).map(parseEvent);
 
 	let logId = -1;
@@ -175,6 +175,12 @@ function calculate(logs: string[]): number {
 
 		return y;
 	}, new Map<number, Set<number>[]>());
+
+	return asleepMaps;
+}
+
+function calculate(logs: string[]): number {
+	const asleepMaps = calculateAsleepMaps(logs);
 
 	const highest = Array.from(asleepMaps.entries()).reduce((high, [id, sets]) => {
 		const timeAsleep = sets.reduce((time, set) => time + Array.from(set.values()).length, 0);
@@ -240,3 +246,60 @@ console.log('Reuslt for testInputs: ', testInputsResult);
 
 const result = calculate(input);
 console.log('Reuslt for input: ', result); // Corrent anszer: 48680
+
+/**
+ * --- Part Two ---
+ *
+ * Strategy 2: Of all guards, which guard is most frequently asleep on the same minute?
+ *
+ * In the example above, Guard #99 spent minute 45 asleep more than any other guard or minute - three times in total.
+ * (In all other cases, any guard spent any minute asleep at most twice.)
+ *
+ * What is the ID of the guard you chose multiplied by the minute you chose? (In the above example, the answer would be 99 * 45 = 4455.)
+ */
+
+function calculate2(logs: string[]): number {
+	const asleepMaps = calculateAsleepMaps(logs);
+
+	const highest = Array.from(asleepMaps.entries()).reduce((high, [id, maps]) => {
+		const minuteMap = new Map<number, number>();
+
+		for (const set of maps) {
+			for (const num of set.values()) {
+				const old = minuteMap.get(num);
+
+				if (old) {
+					minuteMap.set(num, old + 1);
+				} else {
+					minuteMap.set(num, 1);
+				}
+			}
+		}
+
+		const [minute, count] = Array.from(minuteMap.entries()).reduce(([hmin, hcount], [min, c]) => {
+			if (c > hcount) {
+				return [min, c];
+			}
+
+			return [hmin, hcount];
+		}, [0, 0]);
+
+		if (count > high.count) {
+			return {
+				count,
+				id,
+				minute,
+			};
+		}
+
+		return high;
+	}, { id: -1, minute: -1, count: -1 });
+
+	return highest.id * highest.minute;
+}
+
+const testInputsResult2 = calculate2(testInputs);
+console.log('Result2 for testInputs: ', testInputsResult2);
+
+const result2 = calculate2(input);
+console.log('Result2 for input: ', result2); // Corrent anszer: 94826
