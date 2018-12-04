@@ -19,5 +19,7 @@
 		"build": "npm run compile",
 		"start": "node dist/index.js"
 	},
-	"dependencies": {}
+	"devDependencies": {
+		"moment": "^2.22.2"
+	}
 }
