@@ -1,1 +1,1 @@
-export { getIntInput, getStringInput } from './file';
+export { getStringInput } from './file';

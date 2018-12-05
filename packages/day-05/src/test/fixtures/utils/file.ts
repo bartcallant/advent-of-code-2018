@@ -6,9 +6,7 @@ const getInput = () => {
 
 	return fs.readFileSync(filePath)
 		.toString()
-		.split('\n')
-		.filter((row) => row.trim());
+		.trim();
 };
 
-export const getIntInput = () => getInput().map((input: string) => parseInt(input, 10));
 export const getStringInput = getInput;
