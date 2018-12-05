@@ -1,0 +1,53 @@
+{
+	"name": "@advent-of-code-2018/day-05",
+	"version": "0.0.0",
+	"description": "My code for the Advent of Code challenge for 2018 - Day 05",
+	"main": "dist/index.js",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/bartcallant/advent-of-code-2018.git"
+	},
+	"keywords": [
+		"advent",
+		"of",
+		"code",
+		"2018"
+	],
+	"author": "Bart Callant <bart@callant.net>",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/bartcallant/advent-of-code-2018/issues"
+	},
+	"homepage": "https://github.com/bartcallant/advent-of-code-2018/tree/master/packages/day-05#readme",
+	"directories": {
+		"lib": "dist"
+	},
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "npm run compile",
+		"test": "nyc ava dist/test",
+		"pretest": "npm run lint",
+		"precompile": "npm run clean",
+		"compile": "tsc -p tsconfig.json",
+		"prelint": "npm run compile -- --sourceMap",
+		"lint": "tslint -p . --format stylish",
+		"postlint": "cpy './test/fixtures/data/*' '../dist' --cwd=src --parents",
+		"clean": "del-cli .nyc_output coverage dist"
+	},
+	"devDependencies": {
+		"@types/node": "10.12.12",
+		"ava": "0.25.0",
+		"cpy-cli": "2.0.0",
+		"del-cli": "1.1.0",
+		"nyc": "13.1.0",
+		"tslint": "5.11.0",
+		"typescript": "3.2.1"
+	},
+	"nyc": {
+		"exclude": [
+			"dist/test"
+		]
+	}
+}
