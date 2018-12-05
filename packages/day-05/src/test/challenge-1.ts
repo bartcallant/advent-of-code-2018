@@ -5,9 +5,9 @@ import { getStringInput } from './fixtures/utils';
 import { challenge1 } from '../lib';
 
 test('test results', (t) => {
-	t.is(challenge1([]), []);
+	t.is(challenge1('dabAcCaCBAcCcaDA'), 10);
 });
 
 test('results', async (t) => {
-	t.is(challenge1(getStringInput()), []);
+	t.is(challenge1(getStringInput()[0]), 9808);
 });
