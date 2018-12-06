@@ -15,5 +15,5 @@ test('test results', (t) => {
 });
 
 test('results', async (t) => {
-	t.is(challenge1(getStringInput()), 0);
+	t.is(challenge1(getStringInput()), 4016);
 });
