@@ -10,5 +10,4 @@ const getInput = () => {
 		.filter((row) => row.trim());
 };
 
-export const getIntInput = () => getInput().map((input: string) => parseInt(input, 10));
 export const getStringInput = getInput;
