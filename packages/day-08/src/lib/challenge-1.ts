@@ -42,27 +42,8 @@
  * What is the sum of all metadata entries?
  */
 
-interface TreeItem {
-	metadata: number[];
-	childnodes: TreeItem[];
-}
-
-const buildTreeItem = (input: number[]): TreeItem => {
-	const [numberOfChildNodes, numberOfMetaDataEntries] = input.splice(0, 2);
-
-	const childnodes: TreeItem[] = [];
-
-	for (let i = 0; i < numberOfChildNodes; i++) {
-		childnodes.push(buildTreeItem(input));
-	}
-
-	const metadata = input.splice(0, numberOfMetaDataEntries);
-
-	return {
-		childnodes,
-		metadata
-	};
-};
+import { TreeItem } from './entities';
+import { buildTree } from './utils';
 
 const calculateMetadataSum = (item: TreeItem): number => {
 	const metadataSum = item.metadata.reduce((sum, metadata) => sum + metadata, 0);
@@ -73,13 +54,7 @@ const calculateMetadataSum = (item: TreeItem): number => {
 };
 
 export const challenge = (inputs: string[]): number => {
-	const numberInput = inputs.map(((i) => parseInt(i, 10)));
-
-	const tree: TreeItem[] = [];
-
-	while (numberInput.length > 0) {
-		tree.push(buildTreeItem(numberInput));
-	}
+	const tree = buildTree(inputs);
 
 	const result = tree.reduce((sum, child) => sum + calculateMetadataSum(child), 0);
 
