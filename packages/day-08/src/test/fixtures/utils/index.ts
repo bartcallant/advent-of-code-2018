@@ -1,0 +1,1 @@
+export { getChallengeInput } from './file';
